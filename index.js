@@ -2,22 +2,23 @@ import React, { useState, StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import './style.css';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 function StopWatch() {
   const [lapse, setLapse] = useState(0);
   const [running, setRunning] = useState(false);
+  const [timer, setTimer] = useState(null)
 
-  let timer;
 
   const handleRunClick = () => {
     if (running) {
       clearInterval(timer);
     } else {
       const startTime = Date.now() - lapse;
-      timer = setInterval(() => {
+     const timerValue = setInterval(() => {
         setLapse(Date.now() - startTime);
       });
+      setTimer(timerValue)
     }
     setRunning(!running);
   };
@@ -28,11 +29,6 @@ function StopWatch() {
     setRunning(false);
   };
 
-  useEffect(() => {
-    return () => {
-      clearInterval(timer);
-    };
-  }, []);
 
   const buttonStyles = {
     border: '1px solid #ccc',
